@@ -10,7 +10,7 @@ using PomodoroTracker.Models;
 
 namespace PomodoroTracker.Controllers
 {
-    public class PomodoroesController : Controller
+    public class PomodorosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
