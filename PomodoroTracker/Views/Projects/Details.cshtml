@@ -72,13 +72,13 @@
 </p>
 
 <script id="NewProjectTaskRow" type="text/x-handlebars-template">
-    <tr>
+    <tr id="ProjectTaskRow-{{ProjectTaskID}}">
         <td>{{Description}}</td>
         <td>{{EstimatedPomodoroCount}}</td>
         <td>
             <a href="/ProjectTasks/Edit/{{ProjectTaskID}}">Edit</a> |
             <a href="/ProjectTasks/Details/{{ProjectTaskID}}">Details</a> | 
-            <a href="/ProjectTasks/Delete/{{ProjectTaskID}}">Delete</a>
+            <a class="command-button" data-method="delete"  href="@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "ProjectTasksApi" })/{{ProjectTaskID }}">Delete</a>
         </td>
     </tr>
 </script>
