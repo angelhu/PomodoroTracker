@@ -20,7 +20,68 @@
 
     </dl>
 </div>
+
+<h4>Tasks</h4>
+
+<div class="row">
+    <form id="NewTaskForm" action="@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "ProjectTasksApi" })" >
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input id="ProjectId" type="hidden" value="@Model.ProjectID" />
+                <input class="form-control" id="NewProjectTaskDescriptionInput" type="text" placeholder="New task description..." />
+                <input class="form-control" id="NewProjectTaskEstimatedPomodorosInput" type="number" placeholder="Est. Pomodoros..." />
+                <button class="btn btn-primary" id="NewProjectTaskCreateButton" type="submit">Create</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(modelItem => modelItem.ProjectTasks[0].Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(modelItem => modelItem.ProjectTasks[0].EstimatedPomodoroCount)
+        </th>
+        <th>
+            
+        </th>
+    </tr>
+
+    @foreach (var task in Model.ProjectTasks)
+    {
+        <tr id="ProjectTaskRow-@task.ProjectTaskID">
+            <td>
+                @Html.DisplayFor(modelItem => task.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.EstimatedPomodoroCount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "ProjectTasks", new { id = task.ProjectTaskID }, new { }) |
+                @Html.ActionLink("Details", "Details", "ProjectTasks", new { id = task.ProjectTaskID }, new { }) |
+                <a class="command-button" data-method="delete" href="@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "ProjectTasksApi", Id= task.ProjectTaskID })">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<script id="NewProjectTaskRow" type="text/x-handlebars-template">
+    <tr>
+        <td>{{Description}}</td>
+        <td>{{EstimatedPomodoroCount}}</td>
+        <td>
+            <a href="/ProjectTasks/Edit/{{ProjectTaskID}}">Edit</a> |
+            <a href="/ProjectTasks/Details/{{ProjectTaskID}}">Details</a> | 
+            <a href="/ProjectTasks/Delete/{{ProjectTaskID}}">Delete</a>
+        </td>
+    </tr>
+</script>
+@section scripts {
+    <script type="text/javascript" src="~/Scripts/App/ProjectDetails.js"></script>
+    }
